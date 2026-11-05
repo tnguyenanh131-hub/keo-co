@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kéo Co Kiến Thức</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+function playFreezeSound() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(200, ctx.currentTime);
+    gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.start();
+    setTimeout(() => {
+        oscillator.stop();
+        ctx.close();
+    }, 300);
+}
+
+</script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest">
+function playFreezeSound() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(200, ctx.currentTime);
+    gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.start();
+    setTimeout(() => {
+        oscillator.stop();
+        ctx.close();
+    }, 300);
+}
+
+</script>
+
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            startup: { typeset: false } // Tắt tự động render lúc mới load, sẽ render bằng JS
+        };
+    
+function playFreezeSound() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(200, ctx.currentTime);
+    gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.start();
+    setTimeout(() => {
+        oscillator.stop();
+        ctx.close();
+    }, 300);
+}
+
+</script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+function playFreezeSound() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(200, ctx.currentTime);
+    gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.start();
+    setTimeout(() => {
+        oscillator.stop();
+        ctx.close();
+    }, 300);
+}
+
+</script>
+
+    <style>
+        /* Custom animations & utilities */
+        .animate-spin-slow { animation: spin 3s linear infinite; }
+        .hidden { display: none !important; }
+        body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    </style>
+</head>
+<body class="bg-[#111] overflow-hidden select-none">
+
+    <!-- AUDIO (Bạn có thể tải nhạc về, để chung thư mục với file html và đổi src="nhac-nen.mp3") -->
+    <audio id="bgm" loop preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+    <!-- ========================================== -->
+    <!-- MÀN HÌNH 1: CẤU HÌNH (CONFIG SCREEN)       -->
+    <!-- ========================================== -->
+    <div id="screen-config" class="min-h-screen bg-slate-50 p-4 md:p-8 text-slate-800 overflow-y-auto w-full absolute inset-0 z-50">
+        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6 md:p-8 border border-slate-200">
+            <h1 class="text-2xl font-bold text-blue-600 mb-6 flex items-center gap-2">Tạo Kéo Co mới</h1>
+            
+            <div class="mb-6">
+                <label class="block text-sm font-semibold mb-2">Tiêu đề Trò chơi:</label>
+                <input type="text" id="cfg-title" class="w-full border border-slate-300 rounded-lg p-3 outline-none focus:border-blue-500" value="LUYỆN TẬP HỆ TỌA ĐỘ TRONG KHÔNG GIAN - TOÁN 12">
+            </div>
+
+            <hr class="my-6 border-slate-200" />
+
+            <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                <i data-lucide="settings" class="text-slate-400 w-5 h-5"></i> Cấu hình trò chơi
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Cột trái -->
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Thời gian thi đấu (giây):</label>
+                        <select id="cfg-time" class="w-full border border-slate-300 rounded-lg p-3 outline-none focus:border-blue-500">
+                            <option value="60">60 giây</option>
+                            <option value="120" selected>120 giây (Tiêu chuẩn)</option>
+                            <option value="180">180 giây</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Số điểm chênh lệch để thắng:</label>
+                        <input type="number" id="cfg-windiff" value="3" class="w-full border border-slate-300 rounded-lg p-3 outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Thời gian đóng băng khi sai (giây):</label>
+                        <select id="cfg-freeze" class="w-full border border-slate-300 rounded-lg p-3 outline-none focus:border-blue-500">
+                            <option value="1">1 giây</option>
+                            <option value="2">2 giây</option>
+                            <option value="3" selected>3 giây</option>
+                            <option value="5">5 giây</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Tên Đội 1 (Xanh):</label>
+                        <input type="text" id="cfg-t1name" value="Đội Xanh" class="w-full border border-slate-300 rounded-lg p-3 outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Tên Đội 2 (Đỏ):</label>
+                        <input type="text" id="cfg-t2name" value="Đội Đỏ" class="w-full border border-slate-300 rounded-lg p-3 outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <!-- Cột phải -->
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Phương thức điều khiển:</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label id="lbl-ctrl-touch" class="flex items-center justify-center p-3 border rounded-lg cursor-pointer text-sm text-center border-slate-200" onclick="setControl('touch')">
+                                Sử dụng chuột / chạm
+                            </label>
+                            <label id="lbl-ctrl-kbd" class="flex items-center justify-center p-3 border rounded-lg cursor-pointer text-sm text-center border-blue-500 bg-blue-50 text-blue-700" onclick="setControl('keyboard')">
+                                <div>
+                                    <div class="font-semibold">Sử dụng bàn phím</div>
+                                    <div class="text-xs mt-1">(Xanh: Q W A S - Đỏ: O P K L)</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Thứ tự câu hỏi:</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label id="lbl-shuf-yes" class="flex items-center justify-center p-3 border rounded-lg cursor-pointer text-sm border-blue-500 bg-blue-50 text-blue-700" onclick="setShuffle(true)">
+                                Đảo ngẫu nhiên
+                            </label>
+                            <label id="lbl-shuf-no" class="flex items-center justify-center p-3 border rounded-lg cursor-pointer text-sm border-slate-200" onclick="setShuffle(false)">
+                                Giữ nguyên thứ tự
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-end">
+                <button onclick="goToScreen('INTRO')" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold shadow-lg transition-transform active:scale-95">
+                    Tạo phòng chơi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MÀN HÌNH 2: GIỚI THIỆU (INTRO SCREEN)      -->
+    <!-- ========================================== -->
+    <div id="screen-intro" class="min-h-screen bg-[#1e1e24] flex items-center justify-center p-4 relative overflow-hidden hidden w-full absolute inset-0 z-40">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-gradient-to-tr from-blue-900/30 to-purple-900/30 blur-3xl -z-10"></div>
+        
+        <div class="bg-[#2a2b40] rounded-2xl shadow-2xl p-6 md:p-8 max-w-2xl w-full border border-slate-700 relative z-10 text-white">
+            <h1 class="text-3xl md:text-4xl font-black text-center text-yellow-400 drop-shadow-md mb-8 flex items-center justify-center gap-3">
+                <span class="text-blue-400">🧬</span> <span id="intro-title-text">LUYỆN TẬP HỆ TỌA ĐỘ TRONG KHÔNG GIAN - TOÁN 12</span>
+            </h1>
+
+            <div class="space-y-4 mb-10">
+                <div class="bg-[#353650] p-4 rounded-xl flex items-center gap-4 text-slate-200">
+                    <div class="bg-slate-700 p-2 rounded-lg"><i data-lucide="timer" class="text-pink-400"></i></div>
+                    <span class="text-lg font-medium">Thời gian thi đấu: <span id="intro-time-text">120</span> giây</span>
+                </div>
+                <div class="bg-[#353650] p-4 rounded-xl flex items-center gap-4 text-slate-200">
+                    <div class="bg-slate-700 p-2 rounded-lg"><i data-lucide="trophy" class="text-yellow-500"></i></div>
+                    <span class="text-lg font-medium">Đội nào hơn <span id="intro-windiff-text">3</span> điểm sẽ thắng ngay lập tức</span>
+                </div>
+                <div class="bg-[#353650] p-4 rounded-xl flex items-center gap-4 text-slate-200">
+                    <div class="bg-slate-700 p-2 rounded-lg"><i data-lucide="clipboard-list" class="text-orange-400"></i></div>
+                    <span class="text-lg font-medium">Mỗi đội có 5 câu hỏi riêng, trả lời độc lập</span>
+                </div>
+                <div class="bg-[#353650] p-4 rounded-xl flex items-center gap-4 text-slate-200">
+                    <div class="bg-slate-700 p-2 rounded-lg"><i data-lucide="snowflake" class="text-cyan-400"></i></div>
+                    <span class="text-lg font-medium">Trả lời sai bị đóng băng <span id="intro-freeze-text">3</span> giây</span>
+                </div>
+                <div class="bg-[#353650] p-4 rounded-xl flex items-center gap-4 text-slate-200">
+                    <div class="bg-slate-700 p-2 rounded-lg"><i data-lucide="gamepad-2" class="text-purple-400"></i></div>
+                    <span class="text-lg font-medium" id="intro-ctrl-text">Bàn phím (Xanh: Q,W,A,S - Đỏ: O,P,K,L)</span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-4 mb-10">
+                <div class="bg-blue-600/20 border-2 border-blue-500 text-blue-100 px-4 md:px-6 py-3 rounded-xl font-bold text-lg md:text-xl flex items-center gap-2">
+                    <div class="w-4 h-4 rounded-full bg-blue-400 animate-pulse"></div>
+                    <span id="intro-t1name-text">Đội Xanh</span>
+                </div>
+                <div class="text-yellow-400 font-black text-xl md:text-2xl italic">VS</div>
+                <div class="bg-red-600/20 border-2 border-red-500 text-red-100 px-4 md:px-6 py-3 rounded-xl font-bold text-lg md:text-xl flex items-center gap-2">
+                    <div class="w-4 h-4 rounded-full bg-red-400 animate-pulse"></div>
+                    <span id="intro-t2name-text">Đội Đỏ</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button onclick="goToScreen('CONFIG')" class="bg-transparent border border-slate-500 text-slate-300 hover:bg-slate-700 px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors">
+                    <i data-lucide="settings" class="w-5 h-5"></i> Cài đặt lại
+                </button>
+                <button onclick="startGame()" class="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-400 hover:to-indigo-400 text-white px-10 py-3 rounded-xl font-bold text-xl flex items-center justify-center gap-2 shadow-lg shadow-purple-500/30 transition-transform active:scale-95">
+                    <i data-lucide="play" class="w-6 h-6 fill-current"></i> Bắt đầu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MÀN HÌNH 3: GAMEPLAY (GAME SCREEN)         -->
+    <!-- ========================================== -->
+    <div id="screen-game" class="h-screen w-screen flex flex-col hidden absolute inset-0 z-30">
+        <!-- TOP BAR -->
+        <div class="h-16 bg-[#1a1b26] border-b border-slate-800 flex items-center justify-between px-4 md:px-6 shrink-0">
+            <div id="game-title" class="text-yellow-400 font-bold text-xl drop-shadow-md hidden md:block w-1/4 truncate">LUYỆN TẬP HỆ TỌA ĐỘ TRONG KHÔNG GIAN - TOÁN 12</div>
+            
+            <div class="flex items-center justify-center gap-4 md:gap-8 flex-1">
+                <!-- Điểm Xanh -->
+                <div class="flex items-center gap-2 md:gap-3 bg-blue-900/50 border border-blue-700 px-3 md:px-4 py-1.5 rounded-full">
+                    <div class="w-3 h-3 rounded-full bg-blue-400 hidden sm:block"></div>
+                    <span id="game-t1name-text" class="text-blue-100 font-semibold text-sm md:text-base hidden sm:inline">Đội Xanh</span>
+                    <span id="game-t1score" class="bg-yellow-500 text-black font-black px-3 py-0.5 rounded-full text-lg shadow-[0_0_10px_rgba(234,179,8,0.5)]">0</span>
+                </div>
+
+                <!-- Đồng hồ -->
+                <div class="flex items-center gap-2 text-2xl md:text-3xl font-black text-white tracking-wider w-24 justify-center">
+                    <i data-lucide="timer" class="text-pink-500 w-6 h-6 md:w-8 md:h-8"></i>
+                    <span id="game-timer-text">2:00</span>
+                </div>
+
+                <!-- Điểm Đỏ -->
+                <div class="flex items-center gap-2 md:gap-3 bg-red-900/50 border border-red-700 px-3 md:px-4 py-1.5 rounded-full">
+                    <span id="game-t2score" class="bg-yellow-500 text-black font-black px-3 py-0.5 rounded-full text-lg shadow-[0_0_10px_rgba(234,179,8,0.5)]">0</span>
+                    <span id="game-t2name-text" class="text-red-100 font-semibold text-sm md:text-base hidden sm:inline">Đội Đỏ</span>
+                    <div class="w-3 h-3 rounded-full bg-red-500 hidden sm:block"></div>
+                </div>
+            </div>
+
+            <div class="flex gap-2 w-1/4 justify-end">
+                <button onclick="toggleMute()" id="btn-mute" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition-colors">
+                    <i data-lucide="volume-2" class="w-5 h-5"></i>
+                </button>
+                <button onclick="toggleFullscreen()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-colors hidden sm:flex">
+                    <i data-lucide="maximize" class="w-5 h-5"></i> <span class="hidden md:inline">Toàn Màn Hình</span>
+                </button>
+                <button onclick="exitGame()" class="bg-slate-800 hover:bg-red-900/50 hover:text-red-400 text-slate-300 px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    Thoát
+                </button>
+            </div>
+        </div>
+
+        <!-- KHU VỰC CHÍNH -->
+        <div class="flex-1 flex flex-col md:flex-row p-2 gap-2 overflow-hidden relative">
+            
+            <!-- OVERLAY KẾT THÚC GAME -->
+            <div id="win-overlay" class="absolute inset-0 z-50 bg-black/80 flex-col items-center justify-center hidden">
+                <i data-lucide="trophy" class="text-yellow-400 w-20 h-20 mb-6 drop-shadow-[0_0_30px_rgba(250,204,21,0.6)]"></i>
+                <h2 id="win-title" class="text-3xl md:text-5xl font-black text-white mb-2 uppercase tracking-widest text-center px-4">ĐỘI XANH THẮNG!</h2>
+                <p id="win-desc" class="text-xl text-slate-300 mb-8">Tỉ số chung cuộc: 3 - 0</p>
+                <button onclick="goToScreen('INTRO')" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-bold text-xl hover:scale-105 transition-transform">
+                    Chơi Ván Mới
+                </button>
+            </div>
+
+            <!-- CỘT TRÁI - ĐỘI XANH -->
+            <div class="flex-1 bg-[#253e6b] rounded-2xl flex flex-col relative overflow-hidden shadow-inner border border-[#3b5998]">
+                <!-- Freeze T1 -->
+                <div id="t1-freeze" class="absolute inset-0 z-20 bg-blue-900/70 backdrop-blur-sm flex-col items-center justify-center hidden">
+                    <i data-lucide="snowflake" class="text-cyan-300 w-20 h-20 animate-spin-slow"></i>
+                    <span class="text-xl md:text-2xl font-bold text-cyan-100 mt-4 tracking-widest text-center px-2">ĐANG BỊ ĐÓNG BĂNG!</span>
+                </div>
+                
+                <div class="h-1/2 flex items-center justify-center p-4 md:p-8 text-center border-b border-blue-800/50">
+                    <div id="t1-qtext" class="text-xl md:text-3xl text-blue-50 font-medium leading-relaxed drop-shadow-md overflow-y-auto max-h-full w-full"></div>
+                </div>
+                <div id="t1-opts-container" class="h-1/2 p-2 md:p-4 grid grid-cols-2 gap-2 md:gap-4">
+                    <button onclick="submitAnswer(1, 0)" class="bg-[#eef2f6] hover:bg-white text-[#1e293b] rounded-xl text-lg md:text-xl font-bold flex items-center justify-center p-2 md:p-4 transition-transform active:scale-95 shadow-sm border-b-4 border-[#cbd5e1] hover:border-blue-400 relative group overflow-hidden">
+                        <span id="t1-opt0-text" class="pointer-events-none"></span>
+                        <span class="t1-key-hint absolute top-1 left-2 md:top-2 md:left-2 text-xs font-black text-slate-400 group-hover:text-blue-500 opacity-50 hidden">[Q]</span>
+                    </button>
+                    <button onclick="submitAnswer(1, 1)" class="bg-[#eef2f6] hover:bg-white text-[#1e293b] rounded-xl text-lg md:text-xl font-bold flex items-center justify-center p-2 md:p-4 transition-transform active:scale-95 shadow-sm border-b-4 border-[#cbd5e1] hover:border-blue-400 relative group overflow-hidden">
+                        <span id="t1-opt1-text" class="pointer-events-none"></span>
+                        <span class="t1-key-hint absolute top-1 left-2 md:top-2 md:left-2 text-xs font-black text-slate-400 group-hover:text-blue-500 opacity-50 hidden">[W]</span>
+                    </button>
+                    <button onclick="submitAnswer(1, 2)" class="bg-[#eef2f6] hover:bg-white text-[#1e293b] rounded-xl text-lg md:text-xl font-bold flex items-center justify-center p-2 md:p-4 transition-transform active:scale-95 shadow-sm border-b-4 border-[#cbd5e1] hover:border-blue-400 relative group overflow-hidden">
+                        <span id="t1-opt2-text" class="pointer-events-none"></span>
+                        <span class="t1-key-hint absolute top-1 left-2 md:top-2 md:left-2 text-xs font-black text-slate-400 group-hover:text-blue-500 opacity-50 hidden">[A]</span>
+                    </button>
+                    <button onclick="submitAnswer(1, 3)" class="bg-[#eef2f6] hover:bg-white text-[#1e293b] rounded-xl text-lg md:text-xl font-bold flex items-center justify-center p-2 md:p-4 transition-transform active:scale-95 shadow-sm border-b-4 border-[#cbd5e1] hover:border-blue-400 relative group overflow-hidden">
+                        <span id="t1-opt3-text" class="pointer-events-none"></span>
+                        <span class="t1-key-hint absolute top-1 left-2 md:top-2 md:left-2 text-xs font-black text-slate-400 group-hover:text-blue-500 opacity-50 hidden">[S]</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CỘT GIỮA - DÂY THỪNG -->
+            <div class="w-full md:w-1/4 lg:w-1/5 bg-[#f8fafc] rounded-2xl relative flex items-center justify-center border-2 border-slate-200 overflow-hidden min-h-[120px] md:min-h-0">
+                <!-- Vạch kẻ giữa -->
+                <div class="absolute top-0 bottom-0 left-1/2 border-l-4 border-dashed border-green-500/50 -translate-x-1/2 z-0"></div>
+                
+                <!-- Nhóm Đồ họa Dây & Người kéo -->
+                <div id="rope-container" class="relative z-10 w-full h-full flex items-center justify-center transition-transform duration-500 ease-out" style="transform: translateX(0%);">
+                    <!-- Sợi dây -->
+                    <div class="absolute w-[200%] h-2 md:h-3 bg-[#8B4513] rounded-full shadow-md z-0"></div>
+                    
+                    <!-- Ruy băng đỏ -->
+                    <div class="absolute w-4 h-8 md:w-6 md:h-12 bg-red-600 z-20 shadow-sm flex items-center justify-center">
+                       <div class="w-6 h-1.5 md:w-8 md:h-2 bg-red-500 absolute rotate-45 rounded-sm"></div>
+                       <div class="w-6 h-1.5 md:w-8 md:h-2 bg-red-500 absolute -rotate-45 rounded-sm"></div>
+                    </div>
+
+                    <!-- Hình nộm Đội Xanh (Trái) -->
+                    <div class="absolute right-1/2 mr-4 md:mr-8 flex gap-1 md:gap-2 scale-75 md:scale-100">
+                        <!-- Tạo 3 người T1 -->
+                        <div class="w-8 h-16 relative -rotate-12 transform origin-bottom">
+                            <div class="w-6 h-6 bg-blue-500 rounded-full absolute -top-4 left-1 border-2 border-slate-800"></div>
+                            <div class="w-8 h-10 bg-blue-600 absolute top-2 rounded-sm border border-slate-800"></div>
+                            <div class="w-10 h-2 bg-[#fcd34d] absolute top-5 -right-6 rotate-12 z-10 rounded-full border border-slate-800"></div>
+                        </div>
+                        <div class="w-8 h-16 relative -rotate-12 transform origin-bottom">
+                            <div class="w-6 h-6 bg-blue-500 rounded-full absolute -top-4 left-1 border-2 border-slate-800"></div>
+                            <div class="w-8 h-10 bg-blue-600 absolute top-2 rounded-sm border border-slate-800"></div>
+                            <div class="w-10 h-2 bg-[#fcd34d] absolute top-5 -right-6 rotate-12 z-10 rounded-full border border-slate-800"></div>
+                        </div>
+                        <div class="w-8 h-16 relative -rotate-12 transform origin-bottom">
+                            <div class="w-6 h-6 bg-blue-500 rounded-full absolute -top-4 left-1 border-2 border-slate-800"></div>
+                            <div class="w-8 h-10 bg-blue-600 absolute top-2 rounded-sm border border-slate-800"></div>
+                            <div class="w-10 h-2 bg-[#fcd34d] absolute top-5 -right-6 rotate-12 z-10 rounded-full border border-slate-800"></div>
+                        </div>
+                    </div>
+
+                    <!-- Hình nộm Đội Đỏ (Phải) -->
+                    <div class="absolute left-1/2 ml-4 md:ml-8 flex gap-1 md:gap-2 scale-75 md:scale-100">
+                        <div class="w-8 h-16 relative rotate-12 transform origin-bottom">
+                            <div class="w-6 h-6 bg-red-500 rounded-full absolute -top-4 left-1 border-2 border-slate-800"></div>
+                            <div class="w-8 h-10 bg-red-600 absolute top-2 rounded-sm border border-slate-800"></div>
+                            <div class="w-10 h-2 bg-[#fcd34d] absolute top-5 -left-6 -rotate-12 z-10 rounded-full border border-slate-800"></div>
+                        </div>
+                        <div class="w-8 h-16 relative rotate-12 transform origin-bottom">
+                            <div class="w-6 h-6 bg-red-500 rounded-full absolute -top-4 left-1 border-2 border-slate-800"></div>
+                            <div class="w-8 h-10 bg-red-600 absolute top-2 rounded-sm border border-slate-800"></div>
+                            <div class="w-10 h-2 bg-[#fcd34d] absolute top-5 -left-6 -rotate-12 z-10 rounded-full border border-slate-800"></div>
+                        </div>
+                        <div class="w-8 h-16 relative rotate-12 transform origin-bottom">
+                            <div class="w-6 h-6 bg-red-500 rounded-full absolute -top-4 left-1 border-2 border-slate-800"></div>
+                            <div class="w-8 h-10 bg-red-600 absolute top-2 rounded-sm border border-slate-800"></div>
+                            <div class="w-10 h-2 bg-[#fcd34d] absolute top-5 -left-6 -rotate-12 z-10 rounded-full border border-slate-800"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absolute top-1 md:top-2 left-2 text-[10px] md:text-xs font-bold text-slate-400">WIN &lt;&lt;</div>
+                <div class="absolute top-1 md:top-2 right-2 text-[10px] md:text-xs font-bold text-slate-400">&gt;&gt; WIN</div>
+            </div>
+
+            <!-- CỘT PHẢI - ĐỘI ĐỎ -->
+            <div class="flex-1 bg-[#8b2b2e] rounded-2xl flex flex-col relative overflow-hidden shadow-inner border border-[#aa393d]">
+                <!-- Freeze T2 -->
+                <div id="t2-freeze" class="absolute inset-0 z-20 bg-red-900/70 backdrop-blur-sm flex-col items-center justify-center hidden">
+                    <i data-lucide="snowflake" class="text-cyan-300 w-20 h-20 animate-spin-slow"></i>
+                    <span class="text-xl md:text-2xl font-bold text-cyan-100 mt-4 tracking-widest text-center px-2">ĐANG BỊ ĐÓNG BĂNG!</span>
+                </div>
+
+                <div class="h-1/2 flex items-center justify-center p-4 md:p-8 text-center border-b border-red-800/50">
+                    <div id="t2-qtext" class="text-xl md:text-3xl text-red-50 font-medium leading-relaxed drop-shadow-md overflow-y-auto max-h-full w-full"></div>
+                </div>
+                <div id="t2-opts-container" class="h-1/2 p-2 md:p-4 grid grid-cols-2 gap-2 md:gap-4">
+                    <button onclick="submitAnswer(2, 0)" class="bg-[#fdf2f2] hover:bg-white text-[#450a0a] rounded-xl text-lg md:text-xl font-bold flex items-center justify-center p-2 md:p-4 transition-transform active:scale-95 shadow-sm border-b-4 border-[#fecaca] hover:border-red-400 relative group overflow-hidden">
+                        <span id="t2-opt0-text" class="pointer-events-none"></span>
+                        <span class="t2-key-hint absolute top-1 right-2 md:top-2 md:right-2 text-xs font-black text-slate-400 group-hover:text-red-500 opacity-50 hidden">[O]</span>
+                    </button>
+                    <button onclick="submitAnswer(2, 1)" class="bg-[#fdf2f2] hover:bg-white text-[#450a0a] rounded-xl text-lg md:text-xl font-bold flex items-center justify-center p-2 md:p-4 transition-transform active:scale-95 shadow-sm border-b-4 border-[#fecaca] hover:border-red-400 relative group overflow-hidden">
+                        <span id="t2-opt1-text" class="pointer-events-none"></span>
+                        <span class="t2-key-hint absolute top-1 right-2 md:top-2 md:right-2 text-xs font-black text-slate-400 group-hover:text-red-500 opacity-50 hidden">[P]</span>
+                    </button>
+                    <button onclick="submitAnswer(2, 2)" class="bg-[#fdf2f2] hover:bg-white text-[#450a0a] rounded-xl text-lg md:text-xl font-bold flex items-center justify-center p-2 md:p-4 transition-transform active:scale-95 shadow-sm border-b-4 border-[#fecaca] hover:border-red-400 relative group overflow-hidden">
+                        <span id="t2-opt2-text" class="pointer-events-none"></span>
+                        <span class="t2-key-hint absolute top-1 right-2 md:top-2 md:right-2 text-xs font-black text-slate-400 group-hover:text-red-500 opacity-50 hidden">[K]</span>
+                    </button>
+                    <button onclick="submitAnswer(2, 3)" class="bg-[#fdf2f2] hover:bg-white text-[#450a0a] rounded-xl text-lg md:text-xl font-bold flex items-center justify-center p-2 md:p-4 transition-transform active:scale-95 shadow-sm border-b-4 border-[#fecaca] hover:border-red-400 relative group overflow-hidden">
+                        <span id="t2-opt3-text" class="pointer-events-none"></span>
+                        <span class="t2-key-hint absolute top-1 right-2 md:top-2 md:right-2 text-xs font-black text-slate-400 group-hover:text-red-500 opacity-50 hidden">[L]</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // INIT LUCIDE ICONS
+        lucide.createIcons();
+
+        // DATA
+        const MATH_QUESTIONS = [{"id": 1, "text": "Trong không gian ${Oxyz}$, cho hai vectơ $\\vec{a}=3\\vec{i}-m\\vec{j}+(4n-6)\\vec{k}$ và $\\vec{b}=3\\vec{i}+5\\vec{j}-4\\vec{k}$, với $m,n\\in\\mathbb{R}$. Khi $\\vec{a}=\\vec{b}$ thì $m+n$ có giá trị bằng?", "options": [{"text": "${- \\frac{3}{2}}$.", "isCorrect": false}, {"text": "${\\frac{9}{2}}$.", "isCorrect": false}, {"text": "${- \\frac{15}{2}}$.", "isCorrect": false}, {"text": "${- \\frac{9}{2}}$.", "isCorrect": true}]}, {"id": 2, "text": "Trong không gian với hệ tọa độ ${Oxyz}$, cho hai điểm ${M(7;3;1)}$ và ${N(8;6;5)}$.<br>Tìm tọa độ vectơ ${\\overrightarrow{MN} }$.", "options": [{"text": "${ (56; 18; 5) }$.", "isCorrect": false}, {"text": "${ (-1; -3; -4) }$.", "isCorrect": false}, {"text": "${ (15; 9; 6) }$.", "isCorrect": false}, {"text": "${ (1; 3; 4) }$.", "isCorrect": true}]}, {"id": 3, "text": "Trong không gian với hệ tọa độ ${Oxyz}$, cho vectơ $\\overrightarrow{w}=6\\overrightarrow{i}-8\\overrightarrow{j}-4\\overrightarrow{k}$.Tìm tọa độ vectơ ${\\overrightarrow{w}}$.", "options": [{"text": "${ (6; -8; 0) }$.", "isCorrect": false}, {"text": "${(6; 8; 4)}$.", "isCorrect": false}, {"text": "${(-6; 8; -4)}$.", "isCorrect": false}, {"text": "${ (6; -8; -4) }$.", "isCorrect": true}]}, {"id": 4, "text": "Cho hình chóp ${S.ABC}$ có đáy là tam giác vuông tại ${A}$, $SA\\bot(ABC)$, ${AB=6}$, ${AC=1}$, ${SA=9}$. Chọn hệ trục tọa độ ${Oxyz}$ có gốc ${O}$ trùng với ${A}$, các điểm ${B,D,S}$ lần lượt nằm trên các tia ${Ox,Oy,Oz}$. Tọa độ điểm ${S}$ là", "options": [{"text": "$(6;0;0)$.", "isCorrect": false}, {"text": "$(6;1;9)$.", "isCorrect": false}, {"text": "$(0;0;9)$.", "isCorrect": true}, {"text": "$(0;1;9)$.", "isCorrect": false}]}, {"id": 5, "text": "Trong không gian với hệ tọa độ ${Oxyz}$, cho điểm ${E(6;-7;-7)}$ và vectơ ${\\overrightarrow{c}=(4;2;-4)}$.<br>Tìm tọa độ điểm ${F}$ biết $\\overrightarrow{EF}=\\overrightarrow{c}$.", "options": [{"text": "${ (10; 9; 3) }$.", "isCorrect": false}, {"text": "${ (10; -5; -11) }$.", "isCorrect": true}, {"text": "${ (2; -9; -3) }$.", "isCorrect": false}, {"text": "${ (-2; 9; 3) }$.", "isCorrect": false}]}, {"id": 6, "text": "Trong không gian với hệ tọa độ ${Oxyz}$, cho vectơ ${\\overrightarrow{b}=(-9;3;1)}$ và điểm ${B}$.<br>Biết $\\overrightarrow{OB}=\\overrightarrow {b}$. Tìm tọa độ điểm ${B}$.", "options": [{"text": "${ (-9; 3; 1) }$.", "isCorrect": true}, {"text": "${(-9; -3; -1)}$.", "isCorrect": false}, {"text": "${(9; -3; 1)}$.", "isCorrect": false}, {"text": "${ (0; -9; 1) }$.", "isCorrect": false}]}, {"id": 7, "text": "Cho hình chóp ${S.ABCD}$ có đáy là hình chữ nhật, $SA\\bot(ABCD)$, ${AB=8}$, ${AD=5}$, ${SA=9}$. Chọn hệ trục tọa độ ${Oxyz}$ có gốc ${O}$ trùng với ${A}$, các điểm ${B,D,S}$ lần lượt nằm trên các tia ${Ox,Oy,Oz}$. Tọa độ điểm ${B}$ là", "options": [{"text": "$(0;0;9)$.", "isCorrect": false}, {"text": "$(8;0;0)$.", "isCorrect": true}, {"text": "$(0;5;9)$.", "isCorrect": false}, {"text": "$(8;5;9)$.", "isCorrect": false}]}, {"id": 8, "text": "Cho hình chóp ${S.ABC}$ có đáy là tam giác đều, $SA\\bot(ABC)$, ${AB=9}$, ${SA=6}$. Chọn hệ trục tọa độ ${Oxyz}$ có gốc ${O}$ trùng với trung điểm của cạnh ${BC}$, các điểm ${B,A}$ lần lượt nằm trên các tia ${Ox,Oy}$, tia ${Oz}$ cùng hướng với tia ${AS}$. Tọa độ điểm ${S}$ là", "options": [{"text": "$(0;\\frac{\\sqrt{3}}{2};9)$.", "isCorrect": false}, {"text": "$(0;0;\\frac{9}{2})$.", "isCorrect": false}, {"text": "$(9;0;0)$.", "isCorrect": false}, {"text": "$(0;\\frac{9 \\sqrt{3}}{2};6)$.", "isCorrect": true}]}, {"id": 9, "text": "Trong không gian với hệ tọa độ ${Oxyz}$, cho điểm ${C(-8;-12;-15)}$.Tìm tọa độ hình chiếu của điểm ${C}$ trên mặt phẳng ${(Oxy)}$.", "options": [{"text": "${ (0; 0; -15) }$.", "isCorrect": false}, {"text": "${ (0; -12; -15) }$.", "isCorrect": false}, {"text": "${ ( -8; 0;-15) }$.", "isCorrect": false}, {"text": "${ (-8; -12; 0) }$.", "isCorrect": true}]}, {"id": 10, "text": "Cho hình lập phương ${ABCD.A'B'C'D}$ có cạnh bằng ${9}$.Chọn hệ trục tọa độ ${Oxyz}$ có gốc ${O}$ trùng với ${A}$, các điểm ${B,D,A'}$ lần lượt nằm trên các tia ${Ox,Oy,Oz}$. Tọa độ điểm ${B'}$ là", "options": [{"text": "$(0;9;0)$.", "isCorrect": false}, {"text": "$(9;0;0)$.", "isCorrect": false}, {"text": "$(9;0;9)$.", "isCorrect": true}, {"text": "$(0;9;9)$.", "isCorrect": false}]}, {"id": 11, "text": "Trong không gian với hệ tọa độ ${Oxyz}$, cho các điểm ${M(10;4;-9), F(-1;-3;-10)}$ và ${H(-14;1;10)}$ .<br>Tìm tọa độ điểm ${D}$ sao cho ${MFHD}$ là hình bình hành.", "options": [{"text": "${ (-5; 2; -9) }$.", "isCorrect": false}, {"text": "${ (25; 6; -9) }$.", "isCorrect": false}, {"text": "${ (23; 0; -29) }$.", "isCorrect": false}, {"text": "${ (-3; 8; 11) }$.", "isCorrect": true}]}];
+
+        // SETTINGS & STATE
+        let settings = {
+            title: "Toán Học 12 - Ôn Tập Cuối Kì", timeLimit: 120, winDifference: 3, freezeTime: 3,
+            team1Name: "Đội Xanh", team2Name: "Đội Đỏ", controlMethod: "keyboard", shuffleQuestions: true
+        };
+
+        let state = {
+            timeLeft: 120, t1Score: 0, t2Score: 0, t1QIdx: 0, t2QIdx: 0,
+            t1Qs: [], t2Qs: [], winner: null, isPlaying: false
+        };
+
+        let t1Frozen = false;
+        let t2Frozen = false;
+        
+        let gameTimerInterval = null;
+        let t1FreezeTimeout = null;
+        let t2FreezeTimeout = null;
+
+        // BGM
+        const bgm = document.getElementById('bgm');
+        bgm.volume = 0.4; // Đặt âm lượng mặc định là 40%
+        let isMuted = false;
+
+        // HELPER
+        function shuffleArray(array) {
+            const newArr = [...array];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        }
+
+        function prepareQuestions(questions, shuffleQs) {
+            // Luôn đảo vị trí các đáp án (options) ngẫu nhiên
+            let newQs = questions.map(q => ({
+                ...q,
+                options: shuffleArray(q.options)
+            }));
+            // Đảo thứ tự câu hỏi nếu được yêu cầu
+            return shuffleQs ? shuffleArray(newQs) : newQs;
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        // NAVIGATION
+        function goToScreen(screenName) {
+            document.getElementById('screen-config').classList.add('hidden');
+            document.getElementById('screen-intro').classList.add('hidden');
+            document.getElementById('screen-game').classList.add('hidden');
+
+            if (screenName === 'CONFIG') {
+                document.getElementById('screen-config').classList.remove('hidden');
+            } else if (screenName === 'INTRO') {
+                saveSettings();
+                updateIntroUI();
+                document.getElementById('screen-intro').classList.remove('hidden');
+                document.getElementById('screen-intro').classList.add('flex');
+            } else if (screenName === 'GAME') {
+                document.getElementById('screen-game').classList.remove('hidden');
+                document.getElementById('screen-game').classList.add('flex');
+            }
+        }
+
+        // SETTINGS LOGIC
+        function setControl(method) {
+            settings.controlMethod = method;
+            document.getElementById('lbl-ctrl-touch').className = `flex items-center justify-center p-3 border rounded-lg cursor-pointer text-sm text-center ${method === 'touch' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200'}`;
+            document.getElementById('lbl-ctrl-kbd').className = `flex items-center justify-center p-3 border rounded-lg cursor-pointer text-sm text-center ${method === 'keyboard' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200'}`;
+        }
+
+        function setShuffle(isShuf) {
+            settings.shuffleQuestions = isShuf;
+            document.getElementById('lbl-shuf-yes').className = `flex items-center justify-center p-3 border rounded-lg cursor-pointer text-sm ${isShuf ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200'}`;
+            document.getElementById('lbl-shuf-no').className = `flex items-center justify-center p-3 border rounded-lg cursor-pointer text-sm ${!isShuf ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200'}`;
+        }
+
+        function saveSettings() {
+            settings.title = document.getElementById('cfg-title').value || "Kéo Co Kiến Thức";
+            settings.timeLimit = parseInt(document.getElementById('cfg-time').value);
+            settings.winDifference = parseInt(document.getElementById('cfg-windiff').value) || 3;
+            settings.freezeTime = parseInt(document.getElementById('cfg-freeze').value);
+            settings.team1Name = document.getElementById('cfg-t1name').value || "Đội Xanh";
+            settings.team2Name = document.getElementById('cfg-t2name').value || "Đội Đỏ";
+        }
+
+        function updateIntroUI() {
+            document.getElementById('intro-title-text').innerText = settings.title;
+            document.getElementById('intro-time-text').innerText = settings.timeLimit;
+            document.getElementById('intro-windiff-text').innerText = settings.winDifference;
+            document.getElementById('intro-freeze-text').innerText = settings.freezeTime;
+            document.getElementById('intro-t1name-text').innerText = settings.team1Name;
+            document.getElementById('intro-t2name-text').innerText = settings.team2Name;
+            document.getElementById('intro-ctrl-text').innerText = settings.controlMethod === 'keyboard' 
+                ? 'Bàn phím (Xanh: Q,W,A,S - Đỏ: O,P,K,L)' 
+                : 'Chạm/bấm vào đáp án để trả lời';
+        }
+
+        // GAME LOGIC
+        function startGame() {
+            state.t1Qs = prepareQuestions(MATH_QUESTIONS, settings.shuffleQuestions);
+            state.t2Qs = prepareQuestions(MATH_QUESTIONS, settings.shuffleQuestions);
+            
+            state.timeLeft = settings.timeLimit;
+            state.t1Score = 0;
+            state.t2Score = 0;
+            state.t1QIdx = 0;
+            state.t2QIdx = 0;
+            state.winner = null;
+            state.isPlaying = true;
+            
+            t1Frozen = false;
+            t2Frozen = false;
+            document.getElementById('t1-freeze').classList.add('hidden');
+            document.getElementById('t1-freeze').classList.remove('flex');
+            document.getElementById('t2-freeze').classList.add('hidden');
+            document.getElementById('t2-freeze').classList.remove('flex');
+            document.getElementById('win-overlay').classList.add('hidden');
+            document.getElementById('win-overlay').classList.remove('flex');
+            
+            // Setup UI Texts
+            document.getElementById('game-title').innerText = settings.title;
+            document.getElementById('game-t1name-text').innerText = settings.team1Name;
+            document.getElementById('game-t2name-text').innerText = settings.team2Name;
+            
+            // Setup Keyboard Hints
+            const t1Hints = document.querySelectorAll('.t1-key-hint');
+            const t2Hints = document.querySelectorAll('.t2-key-hint');
+            t1Hints.forEach(h => settings.controlMethod === 'keyboard' ? h.classList.remove('hidden') : h.classList.add('hidden'));
+            t2Hints.forEach(h => settings.controlMethod === 'keyboard' ? h.classList.remove('hidden') : h.classList.add('hidden'));
+
+            updateScoreUI();
+            renderQuestion(1);
+            renderQuestion(2);
+            goToScreen('GAME');
+
+            // Play music
+            bgm.play().catch(e => console.log('BGM Play prevented:', e));
+
+            // Start Timer
+            clearInterval(gameTimerInterval);
+            document.getElementById('game-timer-text').classList.remove('text-red-500', 'animate-pulse');
+            gameTimerInterval = setInterval(() => {
+                if(!state.isPlaying) return;
+                state.timeLeft--;
+                document.getElementById('game-timer-text').innerText = formatTime(state.timeLeft);
+                
+                if (state.timeLeft <= 10) {
+                    document.getElementById('game-timer-text').classList.add('text-red-500', 'animate-pulse');
+                }
+
+                if (state.timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function updateScoreUI() {
+            document.getElementById('game-t1score').innerText = state.t1Score;
+            document.getElementById('game-t2score').innerText = state.t2Score;
+            
+            const diff = state.t1Score - state.t2Score;
+            let percent = (diff / settings.winDifference) * 40;
+            percent = Math.max(-40, Math.min(40, percent));
+            document.getElementById('rope-container').style.transform = `translateX(${percent}%)`;
+        }
+
+        async function renderQuestion(team) {
+            const qData = team === 1 ? state.t1Qs[state.t1QIdx] : state.t2Qs[state.t2QIdx];
+            if(!qData) return;
+
+            document.getElementById(`t${team}-qtext`).innerHTML = qData.text;
+            for(let i=0; i<4; i++) {
+                document.getElementById(`t${team}-opt${i}-text`).innerHTML = qData.options[i].text;
+            }
+
+            // Gọi MathJax render lại
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                try {
+                    await window.MathJax.typesetPromise([
+                        document.getElementById(`t${team}-qtext`),
+                        document.getElementById(`t${team}-opts-container`)
+                    ]);
+                } catch (e) { console.error('MathJax err', e); }
+            }
+        }
+
+        function submitAnswer(team, optIndex) {
+            if(!state.isPlaying || state.winner) return;
+
+            // Chống click nếu dùng keyboard
+            if(settings.controlMethod === 'keyboard' && event && event.type === 'click') return;
+
+            const qData = team === 1 ? state.t1Qs[state.t1QIdx] : state.t2Qs[state.t2QIdx];
+            const isCorrect = qData.options[optIndex].isCorrect;
+
+            if (team === 1 && !t1Frozen) {
+                if (isCorrect) {
+                    state.t1Score++;
+                    state.t1QIdx = (state.t1QIdx + 1) % state.t1Qs.length;
+                    checkWin();
+                    if(!state.winner) renderQuestion(1);
+                } else {
+                    t1Frozen = true;
+playFreezeSound();
+                    document.getElementById('t1-freeze').classList.remove('hidden');
+                    document.getElementById('t1-freeze').classList.add('flex');
+                    clearTimeout(t1FreezeTimeout);
+                    t1FreezeTimeout = setTimeout(() => {
+                        t1Frozen = false;
+                        document.getElementById('t1-freeze').classList.add('hidden');
+                        document.getElementById('t1-freeze').classList.remove('flex');
+                    }, settings.freezeTime * 1000);
+                }
+            } else if (team === 2 && !t2Frozen) {
+                if (isCorrect) {
+                    state.t2Score++;
+                    state.t2QIdx = (state.t2QIdx + 1) % state.t2Qs.length;
+                    checkWin();
+                    if(!state.winner) renderQuestion(2);
+                } else {
+                    t2Frozen = true;
+playFreezeSound();
+                    document.getElementById('t2-freeze').classList.remove('hidden');
+                    document.getElementById('t2-freeze').classList.add('flex');
+                    clearTimeout(t2FreezeTimeout);
+                    t2FreezeTimeout = setTimeout(() => {
+                        t2Frozen = false;
+                        document.getElementById('t2-freeze').classList.add('hidden');
+                        document.getElementById('t2-freeze').classList.remove('flex');
+                    }, settings.freezeTime * 1000);
+                }
+            }
+        }
+
+        function checkWin() {
+            updateScoreUI();
+            if (state.t1Score - state.t2Score >= settings.winDifference) {
+                state.winner = settings.team1Name;
+                endGame();
+            } else if (state.t2Score - state.t1Score >= settings.winDifference) {
+                state.winner = settings.team2Name;
+                endGame();
+            }
+        }
+
+        function endGame() {
+            state.isPlaying = false;
+            clearInterval(gameTimerInterval);
+            
+            if(!state.winner) {
+                if (state.t1Score > state.t2Score) state.winner = settings.team1Name;
+                else if (state.t2Score > state.t1Score) state.winner = settings.team2Name;
+                else state.winner = 'Hòa';
+            }
+
+            document.getElementById('win-title').innerText = state.winner === 'Hòa' ? 'HẾT GIỜ - HÒA NHAU!' : `${state.winner} CHIẾN THẮNG!`;
+            document.getElementById('win-desc').innerText = `Tỉ số chung cuộc: ${state.t1Score} - ${state.t2Score}`;
+            
+            document.getElementById('win-overlay').classList.remove('hidden');
+            document.getElementById('win-overlay').classList.add('flex');
+        }
+
+        // AUDIO & FULLSCREEN
+        function toggleMute() {
+            isMuted = !isMuted;
+            bgm.muted = isMuted;
+            const btn = document.getElementById('btn-mute');
+            btn.innerHTML = isMuted ? '<i data-lucide="volume-x" class="w-5 h-5"></i>' : '<i data-lucide="volume-2" class="w-5 h-5"></i>';
+            lucide.createIcons();
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        }
+
+        function exitGame() {
+            if(confirm('Bạn có chắc muốn thoát game?')) {
+                state.isPlaying = false;
+                clearInterval(gameTimerInterval);
+                bgm.pause();
+                bgm.currentTime = 0;
+                goToScreen('INTRO');
+            }
+        }
+
+        // KEYBOARD EVENT LISTENER
+        window.addEventListener('keydown', (e) => {
+            if (!state.isPlaying || settings.controlMethod !== 'keyboard') return;
+            
+            const key = e.key.toLowerCase();
+            const t1Keys = ['q', 'w', 'a', 's'];
+            const t2Keys = ['o', 'p', 'k', 'l'];
+
+            if (t1Keys.includes(key)) {
+                submitAnswer(1, t1Keys.indexOf(key));
+            }
+            if (t2Keys.includes(key)) {
+                submitAnswer(2, t2Keys.indexOf(key));
+            }
+        });
+
+    
+function playFreezeSound() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(200, ctx.currentTime);
+    gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.start();
+    setTimeout(() => {
+        oscillator.stop();
+        ctx.close();
+    }, 300);
+}
+
+</script>
+</body>
+</html>
